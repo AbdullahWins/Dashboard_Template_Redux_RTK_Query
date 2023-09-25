@@ -6,6 +6,7 @@ const girlFriendApi = apiSlice.injectEndpoints({
       query: () => ({
         url: "/girlfriends/all",
       }),
+      // providesTags: ["girlfriendsaa", "girlfriends"],
     }),
     addGirlFriend: builder.mutation({
       query: (data) => ({
@@ -13,6 +14,8 @@ const girlFriendApi = apiSlice.injectEndpoints({
         method: "POST",
         body: data,
       }),
+      // invalidatesTags: ["girlfriends"],
+
       async onQueryStarted(data, { queryFulfilled, dispatch }) {
         try {
           const result = await queryFulfilled;
@@ -23,7 +26,7 @@ const girlFriendApi = apiSlice.injectEndpoints({
                 undefined,
                 (draft) => {
                   const validData = result?.data;
-                  draft?.data?.push(validData);
+                  draft?.push(validData);
                 }
               )
             );

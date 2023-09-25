@@ -1,9 +1,15 @@
-import React from "react";
-import { Link, useNavigate } from "react-router-dom";
-import { useAddGirlFriendMutation } from "../../../features/girlfriends/girlFriendsApi";
+import React, { useState } from "react";
+import { Link, useLocation, useNavigate } from "react-router-dom";
+import { useUpdateGirlFriendMutation } from "../../../features/girlfriends/girlFriendsApi";
+import ImageHandler from "../../../components/shared/imageHandler/ImageHandler";
 
-const AddGirlFriend = () => {
-  const [addGirlfriend, { isLoading }] = useAddGirlFriendMutation();
+const UpdateGirlFriend = () => {
+  const [file, setFile] = useState(null);
+  const { state } = useLocation();
+  const { payload } = state;
+  const id = payload?._id;
+
+  const [updateGirlfriend, { isLoading }] = useUpdateGirlFriendMutation();
   const navigate = useNavigate();
 
   const handleSubmit = (event) => {
@@ -16,7 +22,8 @@ const AddGirlFriend = () => {
     const cons = form.cons.value;
     const type = form.type.value;
     const status = form.status.value;
-    const image = form.image.files[0];
+    const image = file;
+    // const image = form.image.files[0];
 
     const data = JSON.stringify({
       name,
@@ -32,7 +39,7 @@ const AddGirlFriend = () => {
     formData.append("data", data);
     formData.append("file", image);
 
-    addGirlfriend(formData)
+    updateGirlfriend({ id, data: formData })
       .unwrap()
       .then((res) => {
         form.reset();
@@ -49,7 +56,7 @@ const AddGirlFriend = () => {
       <div className="h-full w-full flex items-center justify-center">
         <div className="w-full max-w-xl bg-navy-50 p-6 rounded-lg">
           <div className="mb-8">
-            <h2 className="text-2xl font-bold">Add Girlfriend</h2>
+            <h2 className="text-2xl font-bold">Update Girlfriend</h2>
           </div>
           <form action="" className="w-full" onSubmit={handleSubmit}>
             <div className="flex flex-col gap-6">
@@ -59,6 +66,7 @@ const AddGirlFriend = () => {
                 <input
                   type="text"
                   placeholder="Name"
+                  defaultValue={payload?.name}
                   className="w-full bg-transparent border border-fade outline-none py-4 pl-4 pr-1 text-sm rounded-lg"
                   name="name"
                   required
@@ -70,6 +78,7 @@ const AddGirlFriend = () => {
                 <input
                   type="text"
                   placeholder="Age"
+                  defaultValue={payload?.age}
                   className="w-full bg-transparent border border-fade outline-none py-4 pl-4 pr-1 text-sm rounded-lg"
                   name="age"
                   required
@@ -81,6 +90,7 @@ const AddGirlFriend = () => {
                 <input
                   type="text"
                   placeholder="Location"
+                  defaultValue={payload?.location}
                   className="w-full bg-transparent border border-fade outline-none py-4 pl-4 pr-1 text-sm rounded-lg"
                   name="location"
                   required
@@ -94,7 +104,9 @@ const AddGirlFriend = () => {
                   className="w-full bg-transparent border border-fade outline-none py-4 pl-4 pr-1 text-sm rounded-lg h-16"
                   placeholder="Pros"
                   required
-                ></textarea>
+                >
+                  {payload?.pros}
+                </textarea>
               </div>
               {/* Cons */}
               <div className="flex flex-col gap-1">
@@ -104,7 +116,9 @@ const AddGirlFriend = () => {
                   className="w-full bg-transparent border border-fade outline-none py-4 pl-4 pr-1 text-sm rounded-lg h-16"
                   placeholder="Cons"
                   required
-                ></textarea>
+                >
+                  {payload?.cons}
+                </textarea>
               </div>
               {/* Type */}
               <div className="flex flex-col gap-1">
@@ -112,6 +126,7 @@ const AddGirlFriend = () => {
                 <input
                   type="text"
                   placeholder="Type"
+                  defaultValue={payload?.type}
                   className="w-full bg-transparent border border-fade outline-none py-4 pl-4 pr-1 text-sm rounded-lg"
                   name="type"
                   required
@@ -123,21 +138,29 @@ const AddGirlFriend = () => {
                 <input
                   type="text"
                   placeholder="Status"
+                  defaultValue={payload?.status}
                   className="w-full bg-transparent border border-fade outline-none py-4 pl-4 pr-1 text-sm rounded-lg"
                   name="status"
                   required
                 />
               </div>
-              {/* Status */}
-              <div className="flex flex-col gap-1">
+              {/* Image */}
+              {/* <div className="flex flex-col gap-1">
                 <span>Image</span>
                 <input
                   type="file"
                   placeholder="Status"
                   className="w-full bg-transparent border border-fade outline-none py-4 pl-4 pr-1 text-sm rounded-lg"
                   name="image"
-                  required
                 />
+              </div> */}
+              {/* Image */}
+              <div className="flex flex-col gap-1">
+                <span>Image</span>
+                <ImageHandler
+                  image={payload?.image}
+                  setFile={setFile}
+                ></ImageHandler>
               </div>
             </div>
 
@@ -166,4 +189,4 @@ const AddGirlFriend = () => {
   );
 };
 
-export default AddGirlFriend;
+export default UpdateGirlFriend;

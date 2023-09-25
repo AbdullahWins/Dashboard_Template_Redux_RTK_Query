@@ -11,6 +11,7 @@ import Users from "../pages/users/Users";
 import PrivateRouter from "./PrivateRouter";
 import GirlFriends from "../pages/girlfriends/GirlFriends";
 import AddGirlFriend from "../pages/forms/girlfriends/AddGirlFriend";
+import UpdateGirlFriend from "../pages/forms/girlfriends/UpdateGirlFriend";
 
 export const routes = createBrowserRouter([
   {
@@ -63,6 +64,11 @@ export const routes = createBrowserRouter([
       {
         path: "/addgirlfriend",
         element: <AddGirlFriend></AddGirlFriend>,
+      },
+      // forms
+      {
+        path: "/updategirlfriend",
+        element: <UpdateGirlFriend></UpdateGirlFriend>,
       },
     ],
   },

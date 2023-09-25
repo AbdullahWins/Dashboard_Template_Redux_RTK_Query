@@ -9,9 +9,7 @@ export default {
     extend: {},
     colors: {
       transparent: "transparent",
-
       white: "#fff",
-
       "navy-50": "#2E323C",
       "navy-rbg": "rgba(46, 50, 60, 0.50)",
       errorColor: "#ff3d3d",
