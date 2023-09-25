@@ -9,6 +9,8 @@ import Reports from "../pages/reports/Reports";
 import Setting from "../pages/setting/Setting";
 import Users from "../pages/users/Users";
 import PrivateRouter from "./PrivateRouter";
+import GirlFriends from "../pages/girlfriends/GirlFriends";
+import AddGirlFriend from "../pages/forms/girlfriends/AddGirlFriend";
 
 export const routes = createBrowserRouter([
   {
@@ -47,11 +49,20 @@ export const routes = createBrowserRouter([
         path: "/users",
         element: <Users></Users>,
       },
+      {
+        path: "/girlfriends",
+        element: <GirlFriends></GirlFriends>,
+      },
 
       // forms
       {
         path: "/add-user",
         element: <AddUser></AddUser>,
+      },
+      // forms
+      {
+        path: "/addgirlfriend",
+        element: <AddGirlFriend></AddGirlFriend>,
       },
     ],
   },
