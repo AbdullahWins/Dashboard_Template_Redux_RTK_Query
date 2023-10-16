@@ -34,7 +34,7 @@ const ImageHandler = ({ image, setFile }) => {
             <input
               type="file"
               required
-              className="h-1 w-1 opacity-0  absolute"
+              className="h-1 w-1 opacity-0 absolute"
               id="lesson"
               onChange={handleFileChange}
               name="lesson"
